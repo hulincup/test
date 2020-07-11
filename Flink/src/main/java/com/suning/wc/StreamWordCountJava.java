@@ -1,10 +1,11 @@
-package com.suning;
+package com.suning.wc;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.util.Collector;
 
 /**
@@ -19,13 +20,18 @@ public class StreamWordCountJava {
         DataStreamSource<String> dataStream = environment.socketTextStream("bd1301", 7777);
 
         //对流进行操作
-        SingleOutputStreamOperator<Tuple2<String, Integer>> streamWordCount = dataStream.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+        SingleOutputStreamOperator<Tuple2<String, Integer>> streamWordCount = dataStream
+                .flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+                    @Override
             public void flatMap(String line, Collector<Tuple2<String, Integer>> collector) throws Exception {
                 for (String word : line.split(" ")) {
                     collector.collect(new Tuple2<String, Integer>(word, 1));
                 }
             }
-        }).keyBy(0).sum(1);
+        })
+                .keyBy(0)
+        //        .timeWindow(Time.seconds(5))
+                .sum(1);
 
         //打印输出
         streamWordCount.print();

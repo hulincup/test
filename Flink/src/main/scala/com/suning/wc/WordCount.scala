@@ -1,7 +1,6 @@
-package com.suning
+package com.suning.wc
 
-import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment}
-import org.apache.flink.api.scala._
+import org.apache.flink.api.scala.{DataSet, ExecutionEnvironment, _}
 
 object WordCount {
   def main(args: Array[String]): Unit = {
@@ -16,7 +15,11 @@ object WordCount {
     val dataSet: DataSet[String] = environment.readTextFile(path)
 
     //进行flatmap
-    val wordCountDataSet = dataSet.flatMap(_.split("\\s")).map((_,1)).groupBy(0).sum(1)
+    val wordCountDataSet = dataSet.
+      flatMap(_.split("\\s"))
+      .map((_,1))
+      .groupBy(0)
+      .sum(1)
 
     //对结果打印输出
     wordCountDataSet.print()

@@ -1,8 +1,8 @@
-package com.suning
+package com.suning.wc
 
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
-import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment, _}
+import org.apache.flink.streaming.api.windowing.time.Time
 
 object StreamingWordCount {
   def main(args: Array[String]): Unit = {
@@ -22,7 +22,12 @@ object StreamingWordCount {
     val dataStream: DataStream[String] = environment.socketTextStream(host,port)//.disableChaining()
 
     //操作
-    val wordCountDataStream: DataStream[(String, Int)] = dataStream.flatMap(_.split(" ")).map((_,1)).keyBy(0).sum(1)
+    val wordCountDataStream: DataStream[(String, Int)] = dataStream
+      .flatMap(_.split(" "))
+      .map((_,1))
+      .keyBy(0)
+      .timeWindow(Time.seconds(5))
+      .sum(1)
 
     //打印显示
     wordCountDataStream.print().setParallelism(1)

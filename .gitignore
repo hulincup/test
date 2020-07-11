@@ -1,0 +1,6 @@
+# Project exclude paths
+/Flink/target/
+/Hbase/target/
+/Hive/target/
+/Kylin/target/
+/Spark/target/
