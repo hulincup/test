@@ -10,8 +10,8 @@ object WordCount {
     environment.setParallelism(1)
 
     //读取文件
-    //val path = "C:\\Java\\IdeaProjects\\Bigdata_Review\\Flink\\src\\main\\resources\\hello.txt"
-    val path="./hello.txt"
+    val path = "C:\\Java\\IdeaProjects\\Bigdata_Review\\Flink\\src\\main\\resources\\hello.txt"
+    //val path="./hello.txt"
     val dataSet: DataSet[String] = environment.readTextFile(path)
 
     //进行flatmap

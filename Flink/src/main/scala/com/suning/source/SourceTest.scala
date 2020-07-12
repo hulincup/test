@@ -34,7 +34,7 @@ object SourceTest {
     //3.从文件读取
     //val stream3: DataStream[String] = environment.readTextFile("./sensor.txt")
 
-    //4.从kafka读取文件
+    //4.从kafka读取文件 作为kafka消费者
     val properties = new Properties()
     properties.put("bootstrap.servers","bd1301:9092,bd1302:9092,bd1303:9092")
     properties.put("group.id","consumer_group")

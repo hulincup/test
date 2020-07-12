@@ -21,6 +21,7 @@
         <module>Hbase</module>
         <module>Kylin</module>
         <module>Flink</module>
+        <module>Kafka</module>
     </modules>
 
 
