@@ -15,7 +15,7 @@ public class StreamWordCountJava {
     public static void main(String[] args) throws Exception {
         //获取环境
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
-
+        environment.disableOperatorChaining();
         //获取流
         DataStreamSource<String> dataStream = environment.socketTextStream("bd1301", 7777);
 
@@ -30,7 +30,7 @@ public class StreamWordCountJava {
             }
         })
                 .keyBy(0)
-        //        .timeWindow(Time.seconds(5))
+         //       .timeWindow(Time.seconds(5))
                 .sum(1);
 
         //打印输出

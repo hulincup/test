@@ -14,6 +14,7 @@ object KafkaSink {
     // map成样例类类型
     ds.addSink(new FlinkKafkaProducer011[String]("bd1301:9092","sinktest",new SimpleStringSchema()))
 
+    //TwoPhaseCommitSinkFunction
     //开启流环境
     environment.execute("KafkaSink")
   }

@@ -1,0 +1,5 @@
+id,name,age,score,class
+1,xiaoming,18,90,1
+2,xiaodong,20,91,1
+3,xiaohong,19,69,2
+4,xiaogang,18,78,2

@@ -13,8 +13,8 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011
 import scala.util.Random
 
 //定义样例类
-case class SensorReading(id: String, timeStamp: Long, temperature: Double)
 
+case class SensorReading(id: String, timeStamp: Long, temperature: Double)
 object SourceTest {
   def main(args: Array[String]): Unit = {
     //创建流执行环境

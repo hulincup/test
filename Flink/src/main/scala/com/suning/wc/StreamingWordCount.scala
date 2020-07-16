@@ -22,12 +22,13 @@ object StreamingWordCount {
     val dataStream: DataStream[String] = environment.socketTextStream(host,port)//.disableChaining()
 
     //操作
-    val wordCountDataStream: DataStream[(String, Int)] = dataStream
+    val wordCountDataStream: DataStream[(String, Int)] = dataStream//.assignTimestampsAndWatermarks()
       .flatMap(_.split(" "))
       .map((_,1))
       .keyBy(0)
       .timeWindow(Time.seconds(5))
       .sum(1)
+    //Long.MinValue
 
     //打印显示
     wordCountDataStream.print().setParallelism(1)
